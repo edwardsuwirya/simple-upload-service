@@ -13,11 +13,14 @@ object MediaPath {
         Log.d("MainActivity", "getUriAuthority: ${contentUri.authority}")
         var cursor: Cursor? = null
         if ("com.android.providers.media.documents".equals("${contentUri.authority}")) {
+            val docId = DocumentsContract.getDocumentId(contentUri)
+            val sel = MediaStore.Images.Media._ID + "=?"
+            val split = docId.split(":")
             cursor = contentResolver.query(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 null,
-                null,
-                null,
+                sel,
+                arrayOf(split[1]),
                 null
             )
         } else if ("com.android.providers.downloads.documents".equals("${contentUri.authority}")) {
@@ -45,8 +48,8 @@ object MediaPath {
         } else {
             cursor.moveToFirst()
             val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
-            Log.d("MainActivity", "getRealPathFromURI: $idx")
             val path = cursor.getString(idx)
+            Log.d("MainActivity", "getRealPathFromURI: $path")
             cursor.close()
             path
         }
