@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             uploadButton.setOnClickListener {
-//                viewModel.upload()
+                viewModel.upload(listOf(idCardImagePath, selfieImagePath), 1)
             }
         }
     }

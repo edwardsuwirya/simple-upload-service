@@ -13,6 +13,6 @@ interface PostApi {
     @POST("posts/upload")
     suspend fun upload(
         @Part("id") id: RequestBody,
-        @Part idCard: MultipartBody.Part
+        @Part idCard: List<MultipartBody.Part>
     ): Response<Post>
 }

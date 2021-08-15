@@ -9,7 +9,7 @@ import java.io.File
 
 class MainActivityViewModel(private val repository: PostRepository) : ViewModel() {
 
-    fun upload(imageFile: File, postId: Int) {
+    fun upload(imageFile: List<File?>, postId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.uploadFile(imageFile, postId)
         }
